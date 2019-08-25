@@ -1,6 +1,6 @@
-import React,{Component} from 'react';
-import './App.css';
-import { connect } from 'react-redux'
+import React, { Component } from "react";
+import "./App.css";
+import { connect } from "react-redux";
 
 const data = [
   {
@@ -27,61 +27,56 @@ const data = [
     year: 1982,
     origin: "USA"
   }
-]
+];
 
- class App extends Component {
-  constructor (props){
+class App extends Component {
+  constructor(props) {
     super(props);
-    this.state = {models :[]}
-
+    this.state = { models: [] };
   }
-  
-  updateSelection = (event) => {
+
+  updateSelection = event => {
     const value = data.find(details => details.name === event.target.value);
     //console.log("updateselection :value",value)
     this.setState({
-        value
-    })
-  }
-    
-addbutton =() =>
-{ 
-//   const a = {
-//     b: this.state.value
-    
-// }
-this.props.dispatch({
-  type: 'ADD_MODEL',
-  payload: this.state.value
-})
-}
-    
- render() {
-  //console.log("this.state.value is --",this.state.value)
+      value
+    });
+  };
+
+  addbutton = () => {
+    //   const a = {
+    //     b: this.state.value
+
+    // }
+    this.props.dispatch({
+      type: "ADD_MODEL",
+      payload: this.state.value
+    });
+  };
+
+  render() {
+    //console.log("this.state.value is --",this.state.value)
     return (
-      <div className ="App">
+      <div className="App">
         <main>
-          <select value = {this.state.x} onChange = {this.updateSelection}>
-             <option value = "">-- Pick a model --</option>
-              {Object.keys(data).map((details) => 
-                <option value = {data[details].name}>
-                  {`${data[details].name} (${data[details].year})`}
-                </option>
-                )}
-            </select>
-          <button onClick = {()=>this.addbutton()}>Add</button>
-         </main>
+          <select value={this.state.x} onChange={this.updateSelection}>
+            <option value="">-- Pick a model --</option>
+            {Object.keys(data).map(details => (
+              <option key={details} value={data[details].name}>
+                {`${data[details].name} (${data[details].year})`}
+              </option>
+            ))}
+          </select>
+          <button onClick={() => this.addbutton()}>Add</button>
+        </main>
       </div>
     );
-    
   }
-  
-} 
-const mapStateToProps = (state) => {
-  return{
-    x:state
-  }
-} 
- 
-export default connect(mapStateToProps)(App);
+}
+const mapStateToProps = state => {
+  return {
+    x: state
+  };
+};
 
+export default connect(mapStateToProps)(App);
